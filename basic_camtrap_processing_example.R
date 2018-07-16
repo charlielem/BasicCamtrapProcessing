@@ -57,6 +57,7 @@ setwd(wd)
 
 #Make map with base, boundary and camera points scaled/scaled according to trap rate
 par(mar=c(2,2,2,2))
+sp <- "rabbit"
 for(sp in colnames(events)){
   tr <- trate[,sp]
   plotmap(silbase)
@@ -76,11 +77,15 @@ legend(0.5,0.5, tr, col=c(4,2,2,2), pt.cex=0.5*tr+0.5, pch=16,
 #OCCUPANCY ANALYSIS
 ##################################################################################################################################
 library(unmarked)
+#See: Fiske, I.J. and Chandler, R.B. 2011. unmarked: An R package for fitting hierarchical models of wildlife occurrence and abundance. Journal of Statistical Software 43: 10.
 
 #Extract a detection matrix for occupancy analysis for a given species
 dmat <- get.dmatrix("muntjac", eventdat, sitedat)
+View(dmat)
 dmat3 <- condense.matrix(dmat, 3)
-dmat3$detection
+View(dmat3$detection)
+View(dmat3$effort)
+
 #Read in and create covariate data structures
 weatherdat <- read.csv("./heathrow_weather.csv")
 obscovs <- list(temp=matrix(weatherdat$temp.avg, nrow=nrow(dmat), ncol=nrow(weatherdat), byrow=T),
@@ -109,6 +114,7 @@ mods <- fitList(h=m5, null=m9)
 modSel(mods)
 
 backTransform(m9, "state")
+summary(m8)
 
 ##################################################################################################################################
 #ACTIVITY ANALYSIS
