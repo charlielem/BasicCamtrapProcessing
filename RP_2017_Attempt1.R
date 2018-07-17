@@ -17,7 +17,7 @@ exifolder <- ("C:/Users/cml1917/Desktop/IoZ/Analysis/exiftool.exe")
 
 #read.exif(infolder, outfile, exifolder) = did this line first as was in script I was following but said could not find fucntion read.exif
 
-read.exif <- function(infolder, outfile, exifpath="C:/Users/Rowcliffe.M/Documents/APPS/ExifTool"){
+read.exif <- function(infolder, outfile, exifpath="C:/Users/cml1917/Desktop/IoZ/Analysis/exiftool"){
   wd <- getwd()
   setwd(exifpath)
   cmd <- paste("exiftool -r -csv", infolder, ">", outfile)
@@ -27,7 +27,11 @@ read.exif <- function(infolder, outfile, exifpath="C:/Users/Rowcliffe.M/Document
 }
 
 
-imgdat <- read.csv(outfile)
+imgdat <- read.csv(outfile) #nothing errors until here where it says: Error in file(file, "rt") : cannot open the connection
+#In addition: Warning message:
+#In file(file, "rt") :
+  #cannot open file 'C:/Users/cml1917/Desktop/IoZ/Analysis/metadata.csv': No such file or directory
+
 
 
 
